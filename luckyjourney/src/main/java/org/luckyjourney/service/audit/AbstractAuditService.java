@@ -122,6 +122,7 @@ public abstract class AbstractAuditService<T,R> implements AuditService<T,R> {
         final Double maxTerror = scoreJson.getMaxTerror();
 
         // 所有都要比较,如果返回的有问题则直接返回
+        //包含敏感人物
         if (!ObjectUtils.isEmpty(bodyJson.getPolitician())) {
             if (bodyJson.checkViolation(bodyJson.getPolitician(),minPolitician,maxPolitician)) {
                 final AuditResponse response = getInfo(bodyJson.getPolitician(), minPolitician, "group");
@@ -201,3 +202,33 @@ public abstract class AbstractAuditService<T,R> implements AuditService<T,R> {
         return url;
     }
 }
+//{
+//        "successScore": {
+//        "minPulp": "0.1",
+//        "maxPulp": "0.9999",
+//        "minTerror": "0.1",
+//        "maxTerror": "0.9999",
+//        "minPolitician": "0.1",
+//        "maxPolitician": "0.9999",
+//        "auditStatus": "0"
+//        },
+//        "manualScore": {
+//        "minPulp": "0",
+//        "maxPulp": "0",
+//        "minTerror": "0",
+//        "maxTerror": "0",
+//        "minPolitician": "0",
+//        "maxPolitician": "0",
+//        "auditStatus": "3"
+//        },
+//        "passScore": {
+//        "minPulp": "0",
+//        "maxPulp": "0",
+//        "minTerror": "0",
+//        "maxTerror": "0",
+//        "minPolitician": "0",
+//        "maxPolitician": "0",
+//        "auditStatus": "2"
+//        }
+//        }
+//    }

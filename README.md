@@ -1,109 +1,13 @@
-
-
 # 介绍
 
-幸运日是一款短视频平台，拥有热度排行榜，热门视频，兴趣推送，关注推送，内容审核等功能
-
-👍 [教学地址](https://www.bilibili.com/video/BV18M411Z72D/)
-
-👍 [项目地址](http://luckjourney.liuscraft.top/#/)  项目地址防止刷流量,已关闭
-
-
- **注意：该项目技术选型，方案实现，是基于当前项目体量以及实际场景选择，避免过度设计，增加服务器成本，开发成本，运营成本。优化地方下面会提出** 
-
-# 职责分工
-
- **前端 - 刘顺顺**
-
- 负责设计实现前端所有模块的页面和交互 
-
- **技术选型：**
-
-vite + vue3 + axios + pina + router + vuetifyUI + videojs + 七牛云sdk
-
- **后端 - 胡展鸿** 
-
-负责设计实现后端所有模块
+一款短视频平台，拥有热度排行榜，热门视频，兴趣推送，关注推送，内容审核等功能
 
 **技术选型：**
 
 Jdk1.8 + SpringBoot + MyBatis + MySql + Redis + 七牛云存储 + 七牛云审核 + 七牛云转码 + 七牛云回源鉴权
 
 
-# 使用说明
 
- **后端** 
-
-1.将docs中sql文件导入 
-
-2.配置参数： MySql数据源,redis数据源,邮箱参数,七牛云参数,七牛云CNAME
-
-3.配置七牛云回源鉴权相关参数
-
-4.配置系统配置表白名单(放行资源),回源鉴权开关
-
-后台管理地址:http://localhost:8882/page/login.html
-
- **前端** 
-
- **本地启动** 
-
-1.进入front-end文件夹
-
-2.vite.config.js 更改proxy服务为后端的正确ip:port/luckyjourney
-
-3.执行 `yarn` 下载依赖 
-
-4.执行 `yarn dev` 运行dev项目
-
-5.访问: http://127.0.0.1:5378/#/ 可查看前端项目。
-
- **部署** 
-
-> 准备 Node.js v16.15.1 环境
-
-1.进入front-end文件夹
-
-3.执行 `yarn` 下载依赖 
-
-4.执行 `yarn build` 构建项目
-
-5.搭建nginx环境：nginx 1.22
-
-6.将构建好的前端项目部署到nginx
-
-7.配置反向代理:http://127.0.0.1:8882/luckyjourney/ 更改为自己的后端服务地址
-```
-#PROXY-START/
-
-location ^~ /api/
-{
-    proxy_pass http://127.0.0.1:8882/luckyjourney/;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header REMOTE-HOST $remote_addr;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection $connection_upgrade;
-    proxy_http_version 1.1;
-    # proxy_hide_header Upgrade;
-
-    add_header X-Cache $upstream_cache_status;
-    #Set Nginx Cache
-
-    set $static_filegKiLSCbO 0;
-    if ( $uri ~* "\.(gif|png|jpg|css|js|woff|woff2)$" )
-    {
-        set $static_filegKiLSCbO 1;
-        expires 1m;
-    }
-    if ( $static_filegKiLSCbO = 0 )
-    {
-        add_header Cache-Control no-cache;
-    }
-}
-#PROXY-END/
-```
 
 # 项目截图
 
@@ -112,19 +16,9 @@ location ^~ /api/
 
 ![输入图片说明](image/%E7%99%BB%E5%BD%95/%E6%B3%A8%E5%86%8C.png)
 
-
-首页
-
-![输入图片说明](image/%E9%A6%96%E9%A1%B5.png)
-
 视频播放（可滚动播放）,右侧是视频详情以及 **相似视频推送** 
 
 ![输入图片说明](image/%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91.png)
-
-
-创作中心
-
-![输入图片说明](image/%E5%88%9B%E4%BD%9C%E4%B8%AD%E5%BF%83.png)
 
 # 架构设计
 
@@ -369,7 +263,7 @@ score: 视频发布时间
 
 
  **拉取关注视频**
-  
+
 ![输入图片说明](image/%E6%8B%89%E5%8F%96%E6%94%B6%E4%BB%B6%E7%AE%B1%E8%A7%86%E9%A2%91.png)
 
 
@@ -409,13 +303,9 @@ VideoPublishAuditServiceImpl: 发布视频审核设计
 
 使用RBAC实现权限模块,超级管理员可自行分配角色
 
-![输入图片说明](image/%E5%90%8E%E5%8F%B0%E6%9D%83%E9%99%90%E7%95%8C%E9%9D%A2.png)
-
 ### 系统配置
 
 系统配置中配置了审核力度、审核开关、热门视频热度限制、白名单
-
-![输入图片说明](image/%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE.png)
 
 
 ### 视频模块
@@ -427,101 +317,3 @@ VideoPublishAuditServiceImpl: 发布视频审核设计
 ### 分类模块
 
 可管理首页的分类
-
-![输入图片说明](image/%E5%90%8E%E5%8F%B0%E5%88%86%E7%B1%BB.png)
-
-
-## 改进优化
-
-### 架构改进
-
-当前项目为单体架构,为什么没考虑微服务如下:
-
-1.个人认为无论是实际项目还是比赛,不以 **实际解决问题出发而引入某些技术就是在炫技** ,无非是增加了开发成本,运维成本等。例如：不考虑用户体量的场景下就做分库表,引入ES做搜索,MQ做异步解耦
-
-架构改进如下:
-
- **1.视频服务** 
-
-
-
- **2.用户服务** 
-
-
- **3.评论服务** 
-
-评论服务抽出来是考虑到后续产品会出 **动态** 功能,因此将评论服务抽出来
- 
-
- **4.点赞收藏浏览分享服务** 
-
-该服务考虑到后续可能会有对视频,动态,评论等有操作
-
- **5.审核中台** 
-
-
- **6.鉴权服务** 
-
-用于对资源的保护
-
- **7.网关** 
-
-路由请求转发
-
-
-### @Async 改进 MQ
-
-在项目中大量使用了线程解耦,实际引入MQ
-
-### 分片存储视频
-
-项目中Redis有一个分类库,用于存储所有的视频达到随机推送视频，且ttl为-1,项目中未做分片,会造成大key
-
- **分片设计** 
-
-1.每个分类维护一个分片id,且限制分片id最大存储X条数据。 数据结构String key: 分类id  value: 自增id
-
-2.系统启动时将分片id存储本地缓存
-
-3.存储视频时,先判断对应分类中的数量是否达到限制
-
-3.1.未达到 - 跳到4
-3.2.达到限制  - 将本地缓存自增1,异步修改Redis对应分类id   跳到4
-
-4.获取本地缓存对应分类id
-
-5.取对应id内的随机数，达到分片获取数据。如果想避免数据倾斜(随机数很旧,获取视频不是最新),可指定具体id进行获取数据
-
-### Feed流
-
-当前项目中是以拉模式实现,用户上线后拉取内容且设置ttl。这里应该做成推拉模式，用户发布一个视频后，推送到活跃用户的收件箱
-
-这里的设计是考虑了项目体量决定
-
-### 对象存储
-
-对象存储在项目中是将和资源相关暴露给了前端,实际该尽可能减少暴露
-
- **设计** 
-
-1.设计文件表,用于管理所有的文件
-
-2.视频表关联文件表, file_id = file_key
-
-3.获取资源时根据file_id从文件表中查询file_key进行重定向
-
-4.鉴权...
-
-### 审核中台
-
-在项目中审核的设计为嵌入式服务,应该将其抽出改为单独服务,并且提供更多的信息
-
-
-### 分享
-
-分享未做短链接,实际应该做短链接处理,存储视频信息,用户信息等
-
-
-# Contributing
-
-We welcome every contribution, even if it is just a punctuation. See details of [CONTRIBUTING](https://gitee.com/XhyQAQ/lucky-journey/blob/master/CONTRIBUTING.md)

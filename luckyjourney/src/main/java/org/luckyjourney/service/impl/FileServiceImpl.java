@@ -74,7 +74,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
         LocalCache.put(s,true);
         String url = QiNiuConfig.CNAME + "/" + file.getFileKey();
 
-        if (url.contains("?")){
+        if (url.contains("?")){//路径中加入uuid
             url = url+"&uuid="+s;
         }else {
             url = url+"?uuid="+s;

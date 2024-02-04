@@ -45,3 +45,4 @@ public class Setting implements Serializable {
     private SettingScoreJson settingScoreJson;
 
 }
+//{"successScore":{"minPulp":"0.1","maxPulp":"0.9999","minTerror":"0.1","maxTerror":"0.9999","minPolitician":"0.1","maxPolitician":"0.9999","auditStatus":"0"},"manualScore":{"minPulp":"0","maxPulp":"0","minTerror":"0","maxTerror":"0","minPolitician":"0","maxPolitician":"0","auditStatus":"3"},"passScore":{"minPulp":"0","maxPulp":"0","minTerror":"0","maxTerror":"0","minPolitician":"0","maxPolitician":"0","auditStatus":"2"}}

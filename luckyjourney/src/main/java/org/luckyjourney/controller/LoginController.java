@@ -72,7 +72,7 @@ public class LoginController {
 
 
     /**
-     * 获取验证码
+     * 获取邮箱验证码
      * @param captcha
      * @return
      * @throws Exception

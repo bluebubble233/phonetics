@@ -105,7 +105,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setEmail(registerVO.getEmail());
         user.setDescription("这个人很懒...");
         user.setPassword(registerVO.getPassword());
-        save(user);
+        this.save(user);
 
         // 创建默认收藏夹
         final Favorites favorites = new Favorites();
@@ -315,7 +315,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         if (!ObjectUtils.isEmpty(user.getDescription()) && !oldUser.getDescription().equals(user.getDescription())){
             oldUser.setDescription(user.getDescription());
-            final AuditResponse audit = textAuditService.audit(user.getNickName());
+            final AuditResponse audit = textAuditService.audit(user.getDescription());
             if (audit.getAuditStatus() != AuditStatus.SUCCESS) {
                 throw new BaseException(audit.getMsg());
             }

@@ -209,6 +209,7 @@ public class CustomerController {
      */
     @PutMapping
     public R updateUser(@RequestBody @Validated UpdateUserVO user){
+        // 将其设计成service中包含userid
         userService.updateUser(user);
         return R.ok().message("修改成功");
     }

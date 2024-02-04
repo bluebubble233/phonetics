@@ -1,0 +1,14 @@
+package org.phonetics.exception;
+
+/**
+ * @description:
+ * @Author: zzz
+ * @CreateTime: 2023-11-07 09:54
+ */
+public class LimiterException extends BaseException{
+
+
+    public LimiterException(String msg) {
+        super(msg);
+    }
+}
